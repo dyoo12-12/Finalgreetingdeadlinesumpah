@@ -92,20 +92,30 @@
     <button class="btn" onclick="nextPage()">Lanjut? 🎈</button>
   </div>
 
-  <div class="page" id="page5">
-    <h1>Selamat Ulang Tahun Lagi 🥳</h1>
-    <p>Semoga setiap hari penuh kebahagiaan dan cinta. Aku selalu dukung kamu.</p>
-    <video controls>
-      <source src="video-ulangtahun.mp4" type="video/mp4">
-      Browsermu tidak mendukung tag video.
-    </video>
-     <button class="btn" onclick="nextPage()">Bonus 💖</button>
-  </div>
-  
-  <script>
-    let currentPage = 1;
-    const totalPages = 5;
-    const music = document.getElementById('bgMusic');
+  <div class="page" id="page6">
+  <h1>🤍 Cerita Kecil</h1>
+  <p>Mungkin ini bukan waktu yang sempurna, tapi perasaan ini tulus.</p>
+  <p>Aku suka caramu jadi dirimu sendiri.</p>
+  <button class="btn" onclick="nextPage()">Lanjut 🌷</button>
+</div>
+
+<div class="page" id="page7">
+  <h1>Terima Kasih ✨</h1>
+  <p>Untuk setiap tawa, cerita, dan perhatian kecil yang kamu kasih.</p>
+  <p>Semoga aku bisa jadi alasan senyummu juga.</p>
+  <button class="btn" onclick="nextPage()">Hampir Selesai 💞</button>
+</div>
+
+<div class="page" id="page8">
+  <h1>Untuk Hari Ini & Selamanya 💖</h1>
+  <p>Selamat bertambah usia, semoga semesta selalu berpihak padamu.</p>
+  <p>— dari seseorang yang diam-diam bangga sama kamu.</p>
+</div>
+
+<script>
+  let currentPage = 1;
+  const totalPages = 8;
+  const music = document.getElementById('bgMusic');
 
     window.addEventListener('load', () => {
       const firstPage = document.getElementById('page1');
