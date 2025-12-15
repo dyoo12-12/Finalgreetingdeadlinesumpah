@@ -2,120 +2,109 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Happy Birthday 💖</title>
 
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-    body { overflow-x: hidden; overflow-y: hidden; }
-    .page { 
-      position: absolute; width: 100vw; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; text-align: center; opacity: 0; transform: scale(0.95); transition: all 0.8s ease; pointer-events: none;
-      background-size: cover;
-      background-position: center;
-      filter: blur(3px);
-    }
-    .page.active { opacity: 1; transform: scale(1); z-index: 1; pointer-events: auto; filter: blur(0); }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+    body{overflow:hidden;background:#000}
 
-    #page1 { background-image: url('background1.jpg'); }
-    #page2 video.background-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: blur(0px); }
-    #page3 { background-image: url('background3.jpg'); }
-    #page4 video.background-video-loop { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: blur(0px); }
-    #page5 { background-image: url('background5.jpg'); }
+    .page{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;opacity:0;transform:scale(.96);transition:opacity .8s ease,transform .8s ease;pointer-events:none;background-size:cover;background-position:center}
+    .page::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.35);z-index:-1}
+    .page.active{opacity:1;transform:scale(1);pointer-events:auto;z-index:1}
 
-    h1, h2, p {
-      color: #fffae6;
-      text-shadow: 1px 1px 2px #000;
-      transition: all 0.6s ease;
-    }
-    h1 { font-size: 2.2rem; margin-bottom: 6px; }
-    h2 { font-size: 2rem; margin-bottom: 12px; }
-    p { font-size: 1rem; max-width: 320px; }
+    #page1{background-image:url('background1.jpg')}
+    #page3{background-image:url('background3.jpg')}
+    #page5{background-image:url('background5.jpg')}
+    #page6{background-image:url('background6.jpg')}
+    #page7{background-image:url('background7.jpg')}
+    #page8{background-image:url('background8.jpg')}
 
-    .btn { margin-top: 28px; padding: 12px 28px; border-radius: 30px; border: none; background: #fff; color: #ff5e78; font-weight: 600; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.2); transition: transform 0.3s ease, opacity 0.6s ease; }
-    .btn:active { transform: scale(0.95); }
-    .heart { position: fixed; font-size: 18px; animation: float 6s linear infinite; opacity: 0.6; pointer-events: none; }
-    @keyframes float { 0% { transform: translateY(100vh) scale(0.8); } 100% { transform: translateY(-10vh) scale(1.2); } }
-    img { width: 180px; border-radius: 20px; margin: 16px 0; box-shadow: 0 12px 30px rgba(0,0,0,0.25); transition: all 0.6s ease; }
-    video { width: 300px; max-width: 90%; border-radius: 20px; margin-top: 16px; box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
-    .music-btn { position: fixed; top: 16px; right: 16px; background: rgba(255,255,255,0.9); border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; z-index: 10; }
+    video.bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+
+    h1,h2,p{color:#fffbe9;text-shadow:1px 1px 3px rgba(0,0,0,.8);opacity:0;transform:translateY(20px);transition:all .6s ease}
+    h1{font-size:2.2rem;margin-bottom:8px}
+    h2{font-size:1.8rem;margin-bottom:12px}
+    p{font-size:1rem;max-width:340px;margin-bottom:6px}
+
+    img,video.content{width:220px;max-width:90%;border-radius:18px;margin:14px 0;box-shadow:0 12px 30px rgba(0,0,0,.35);opacity:0;transform:translateY(20px);transition:all .6s ease}
+
+    .btn{margin-top:24px;padding:12px 30px;border-radius:999px;border:none;background:#fff;color:#ff5e78;font-weight:600;cursor:pointer;box-shadow:0 10px 25px rgba(0,0,0,.25);transition:transform .2s ease;opacity:0}
+    .btn:active{transform:scale(.95)}
+
+    .music-btn{position:fixed;top:16px;right:16px;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10}
+
+    .heart{position:fixed;font-size:18px;animation:float 6s linear infinite;opacity:.6;pointer-events:none}
+    @keyframes float{from{transform:translateY(100vh) scale(.8)}to{transform:translateY(-10vh) scale(1.2)}}
   </style>
 </head>
 <body>
 
-  <audio id="bgMusic" loop autoplay>
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
-  <div class="music-btn" onclick="toggleMusic()">🎵</div>
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+<div class="music-btn" onclick="toggleMusic()">🎵</div>
 
-  <div class="page active" id="page1">
-    <h1>Haii Meme juan 💕</h1>
-    <img src="foto-kamu1.jpg" alt="Foto Kita">
-    <p>Ada sesuatu yang aku siapin khusus buat kamu hari ini.</p>
-    <p>Bene telat ora pas 00:00 mau lha sek ngedit rung mari terus karo kerjo og.</p>
-    <p>paling sing gae ngene iki mek aku tok 😝.</p>
-    <p>PD duluuu yee kannn wkwk.</p>
-    <button class="btn" onclick="nextPage()">Buka 💌</button>
-  </div>
-
-  <div class="page" id="page2">
-    <video autoplay muted class="background-video">
-      <source src="background2.mp4" type="video/mp4">
-      Browsermu tidak mendukung tag video.
-    </video>
-    <h1>Happy Birthday 🎂</h1>
-    <h2>Untukmu wanita hebat yang ku temui tahun ini </h2>
-    <p>Bagaimana hari ini ? lancar kan ?
-      Semoga hari ini penuh senyum, tawa, dan hal-hal manis.</p>
-    <p>Sama seperti yang kamu punya, senyuman manis</p>
-    <button class="btn" onclick="nextPage()">Lanjut ✨</button>
-  </div>
-
-  <div class="page" id="page3">
-    <h1>Untuk Kamu 🤍</h1>
-    <img src="foto-kamu3.png" alt="Foto Kita">
-    <p>Aku bersyukur bisa kenal kamu. Terimakasih sudah hadir di hidupku dari monokrom menjadi lebih berwarna</p>
-    <p>Sehat dan bahagia selalu, manusia baikku 💕</p>
-    <button class="btn" onclick="nextPage()">Satu Lagi 💖</button>
-  </div>
-
- <div class="page" id="page4">
-    <h1>🎉🎉🎉</h1>
-    <img src="foto-kamu4.png" alt="Foto Kita">
-    <p>Semoga semua mimpi kamu pelan-pelan jadi nyata. Jangan lupa bahagia, karena kamu pantas.</p>
-    <p>Mungkin hidup terlalu banyak memberimu luka yang selalu mampu kamu hadapi, semoga tahun-tahun selanjutnya luka itu luruh satu persatu diganti bahagia berlipat untukmu</p>
-    <button class="btn" onclick="nextPage()">Lanjut? 🎈</button>
- </div>
-
-<div class="page" id="page5">
-   <h1>Selamat Ulang Tahun 🥳</h1>
-   <p>Aku selalu dukung kamu.</p>
-   <video autoplay loop class="content" controls>
-   <source src="video-ulangtahun.mp4" type="video/mp4">
-   </video>
-   <button class="btn" onclick="nextPage()">Lanjut 🌷</button>
+<div class="page active" id="page1">
+  <h1>Haii Meme Juan 💕</h1>
+  <img src="foto-kamu1.png" alt="Foto" />
+  <p>Ada sesuatu yang aku siapin khusus buat kamu hari ini.</p>
+  <p>Telat dikit tapi niatnya full 😝</p>
+  <button class="btn" onclick="startIOS()">Buka 💌</button>
 </div>
 
- <div class="page" id="page6">
+<div class="page" id="page2">
+  <video class="bg-video" autoplay muted playsinline>
+    <source src="background2.mp4" type="video/mp4">
+  </video>
+  <h1>Happy Birthday 🎂</h1>
+  <h2>Untuk wanita hebat</h2>
+  <p>Semoga hari ini penuh senyum dan hal manis 🤍</p>
+  <button class="btn" onclick="nextPage()">Lanjut ✨</button>
+</div>
+
+<div class="page" id="page3">
+  <h1>Untuk Kamu 🤍</h1>
+  <img src="foto-kamu3.png" alt="Foto" />
+  <p>Terima kasih sudah bikin hidupku lebih berwarna.</p>
+  <button class="btn" onclick="nextPage()">Satu Lagi 💖</button>
+</div>
+
+<div class="page" id="page4">
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="background4.mp4" type="video/mp4">
+  </video>
+  <h1>🎉🎉🎉</h1>
+  <p>Semoga mimpi-mimpimu satu-satu jadi nyata.</p>
+  <button class="btn" onclick="nextPage()">Lanjut 🎈</button>
+</div>
+
+<div class="page" id="page5">
+  <h1>Selamat Ulang Tahun 🥳</h1>
+  <p>Aku selalu dukung kamu.</p>
+  <video class="content" autoplay muted playsinline controls>
+    <source src="video-ulangtahun.mp4" type="video/mp4">
+  </video>
+  <button class="btn" onclick="nextPage()">Lanjut 🌷</button>
+</div>
+
+<div class="page" id="page6">
   <h1>🤍 Cerita Kecil</h1>
   <p>Mungkin ini bukan waktu yang sempurna, tapi perasaan ini tulus.</p>
-  <p>Aku suka caramu jadi dirimu sendiri.</p>
   <button class="btn" onclick="nextPage()">Lanjut 🌷</button>
 </div>
 
 <div class="page" id="page7">
   <h1>Terima Kasih ✨</h1>
-  <p>Untuk setiap tawa, cerita, dan perhatian kecil yang kamu kasih.</p>
-  <p>Semoga aku bisa jadi alasan senyummu juga.</p>
+  <p>Untuk setiap tawa dan perhatian kecil darimu.</p>
   <button class="btn" onclick="nextPage()">Hampir Selesai 💞</button>
 </div>
 
 <div class="page" id="page8">
   <h1>Untuk Hari Ini & Selamanya 💖</h1>
-  <p>Selamat bertambah usia, semoga semesta selalu berpihak padamu.</p>
-  <p>— dari seseorang yang diam-diam bangga sama kamu.</p>
+  <p>Semoga semesta selalu berpihak padamu.</p>
 </div>
 
 <script>
@@ -123,46 +112,49 @@
   const totalPages = 8;
   const music = document.getElementById('bgMusic');
 
-    window.addEventListener('load', () => {
-      const firstPage = document.getElementById('page1');
-      firstPage.classList.add('active');
-      const elements = firstPage.querySelectorAll('h1, p, .btn');
-      elements.forEach(el => {
-        el.style.opacity = 1;
-        el.style.transform = 'translateY(0)';
-      });
+  function animatePage(page){
+    const els = page.querySelectorAll('h1,h2,p,.btn,img,video.content');
+    els.forEach((el,i)=>{
+      setTimeout(()=>{
+        el.style.opacity=1;
+        el.style.transform='translateY(0)';
+      }, i*180);
     });
+  }
 
-    function nextPage() {
-      const prevPage = document.getElementById(`page${currentPage}`);
-      prevPage.classList.remove('active');
-      const prevElements = prevPage.querySelectorAll('h1, p, .btn, img, video');
-      prevElements.forEach(el => { el.style.opacity = 0; el.style.transform = 'translateY(20px)'; });
+  animatePage(document.getElementById('page1'));
 
-      currentPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-      const newPage = document.getElementById(`page${currentPage}`);
-      newPage.classList.add('active');
-      const newElements = newPage.querySelectorAll('h1, p, .btn, img, video');
-      newElements.forEach((el, i) => {
-        setTimeout(() => { el.style.opacity = 1; el.style.transform = 'translateY(0)'; }, i * 200);
-      });
+  function startIOS(){
+    music.play().catch(()=>{});
+    nextPage();
+  }
+
+  function nextPage(){
+    if(currentPage === 5){
+      const v = document.querySelector('#page5 video');
+      if(v) v.pause();
     }
+    if(currentPage>=totalPages) return;
+    document.getElementById('page'+currentPage).classList.remove('active');
+    currentPage++;
+    const p = document.getElementById('page'+currentPage);
+    p.classList.add('active');
+    animatePage(p);
+  }
 
-    function toggleMusic() {
-      if (music.paused) { music.play(); } else { music.pause(); }
-    }
+  function toggleMusic(){
+    music.paused ? music.play().catch(()=>{}) : music.pause();
+  }
 
-    setInterval(() => {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.innerHTML = '💖';
-      heart.style.left = Math.random() * window.innerWidth + 'px';
-      heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 6000);
-    }, 600);
-  </script>
+  setInterval(()=>{
+    const h=document.createElement('div');
+    h.className='heart';h.textContent='💖';
+    h.style.left=Math.random()*innerWidth+'px';
+    h.style.animationDuration=(Math.random()*3+4)+'s';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+  },700);
+</script>
 
 </body>
 </html>
-
